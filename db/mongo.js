@@ -1,4 +1,5 @@
-var mongoos = require('mongoose');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 mongoose.connect('http://localhost:2233/arena');
 
@@ -7,7 +8,7 @@ db.on('error', () => console.log('Error connecting to mongo'));
 db.once('open', () => console.log('Connected to mongo'));
 
 const messageSchema = mongoose.Schema({
-  messageId: Number,
+  messageId: ObjectId,
   userName: { type: String, unique: True },
   message: String,
   time: Date,
