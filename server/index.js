@@ -4,6 +4,7 @@ const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const db = require('../db/mongo');
 
+
 app.use(cors());
 app.use((req, res, next) => {
   console.log(req.method, req.path);
@@ -19,21 +20,39 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+const PORT = 7888;
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('a user joined');
+  //socket on join => submit username and locationId to join correct location
+  //socket when message is received => send locationId, message, username, and time of message
+  //socket when location is changed => join different matching id
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+//userJoined 
+  //if there is no username, create a randome name
+  //if there is no existing location match, make a new onex
+  //find stored messages in the location and emit the list back to the user for rendering(another function)
 
-app.post('/api/send/message', (req, res) => {
-  const message = req.body.message;
-});
+//send existing messages
 
-const PORT = 7888;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+//messageReceived
+  //stow a new message to the corresponding locationId, with userName, date of message
+  //emit message to connected clients
+
+//locationChange
+  //When location change happens, join a new room.
+    //may be able to make event emitter for this case and reuse userJoined
+
+// http.listen(3000, function(){
+//   console.log('listening on *:3000');
+// });
+
+// app.post('/api/send/message', (req, res) => {
+//   const message = req.body.message;
+// });
