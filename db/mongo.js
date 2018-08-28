@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-mongoose.connect('mongodb://heroku_12345678:random_password@ds029017.mLab.com:29017/heroku_123456');
+mongoose.connect('mongodb://mae:materia7@ds029017.mLab.com:29017/heroku_123456');
 
 const db = mongoose.connection;
 db.on('error', () => console.log('Error connecting to mongo'));
