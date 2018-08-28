@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const db = require('../db/mongo');
 
 
-app.use(cors());
+// app.use(cors());
 app.use((req, res, next) => {
   console.log(req.method, req.path);
   next();
 });
 
 //Unsure about Native implementation
-app.use(express.static(path.join(__dirname, '../client/dist/')));
+// app.use(express.static(path.join(__dirname, '../client/dist/')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,19 +27,23 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', function(socket){
+const userConnected = (id, socket) => {
+    console.log('This is the incoming data from userConnected: ',id, socket);
+    //if there is no username, create a randome name
+    //if there is no existing location match, make a new onex
+    //find stored messages in the location and emit the list back to the user for rendering(another function)
+  
+  //send existing messages
+}
+
+io.on('connection', (socket) => {
   console.log('a user joined');
   //socket on join => submit username and locationId to join correct location
+  socket.on('userConnected', (userId) => userConnected(userId, socket));
   //socket when message is received => send locationId, message, username, and time of message
   //socket when location is changed => join different matching id
 });
 
-//userJoined 
-  //if there is no username, create a randome name
-  //if there is no existing location match, make a new onex
-  //find stored messages in the location and emit the list back to the user for rendering(another function)
-
-//send existing messages
 
 //messageReceived
   //stow a new message to the corresponding locationId, with userName, date of message
