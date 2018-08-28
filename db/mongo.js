@@ -4,7 +4,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 mongoose.connect('mongodb://mae:materia7@ds029017.mLab.com:29017/heroku_123456');
 
 const db = mongoose.connection;
-db.on('error', () => console.log('Error connecting to mongo'));
+db.on('error', (error) => console.log('Error connecting to mongo', error));
 db.once('open', () => console.log('Connected to mongo'));
 
 
