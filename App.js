@@ -15,13 +15,21 @@ export default class App extends React.Component {
     console.log('emitted');
   }
 
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Behold, your first native application.</Text>
-        <Text>Today, mobile development. Tomorrow, the world.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1
+        }}
+        />
     );
   }
 }
