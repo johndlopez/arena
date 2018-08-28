@@ -28,7 +28,6 @@ const Room = mongoose.model('Room', roomSchema);
 
 //Write out the message methods.
 const saveMessage = (message, arenaId, callback) => {
-  // const arenaId = message._arenaId;
   Room.updateOne(
     { _id: arenaId },
     { $push: { messages : message } },
@@ -63,13 +62,13 @@ let testRoom = {
 }
 
 //getExistingMessages test
-getExistingMessages(3, (err, messages) => {
-  if (err) {
-    console.log('E',err)
-  } else {
-    console.log('CB S', messages);
-  }
-})
+// getExistingMessages(3, (err, messages) => {
+//   if (err) {
+//     console.log('E',err)
+//   } else {
+//     console.log('CB S', messages);
+//   }
+// })
 
 // Save message in server
 // saveMessage(testMessages, 3, (error, message) => {
