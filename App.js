@@ -7,7 +7,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.socket = SocketIOClient('http://localhost:7888');
-    
+    this.state = {
+      messages: []
+    }
   }
 
   componentDidMount() {
